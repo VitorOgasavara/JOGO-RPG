@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reino das Sombras | Seu Herói</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% set classe = jogador.__class__.__name__|lower %}
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            box-sizing: border-box;
+            padding: 30px 15px;
+
+            background-image:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.35),
+                    rgba(0, 0, 0, 0.65)
+                ),
+                url("{{ url_for('static', filename='imagens/cenarios/selecionar.jpeg') }}");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .painel-heroi {
+            width: min(100%, 600px);
+            padding: 30px;
+            box-sizing: border-box;
+
+            background: rgba(12, 12, 18, 0.88);
+            border: 2px solid #b89442;
+            border-radius: 14px;
+
+            text-align: center;
+        }
+
+        .painel-heroi h1 {
+            color: #f0cc70;
+            margin-bottom: 10px;
+        }
+
+        .painel-heroi h2 {
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .painel-heroi p {
+            color: #e5dfd1;
+            line-height: 1.6;
+        }
+
+        .imagem-heroi {
+            display: block;
+            width: 220px;
+            height: 240px;
+            max-width: 100%;
+            object-fit: contain;
+            image-rendering: pixelated;
+            margin: 20px auto;
+        }
+
+        .atributos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .atributo {
+            padding: 15px 8px;
+            background: #211d20;
+            border: 1px solid #6e5830;
+            border-radius: 8px;
+        }
+
+        .atributo strong {
+            display: block;
+            color: #f0cc70;
+            font-size: 1.5rem;
+            margin-top: 8px;
+        }
+
+        .atributo span {
+            color: #ddd3c2;
+            font-size: 0.9rem;
+        }
+
+        .botao-aventura {
+            display: inline-block;
+            padding: 14px 30px;
+
+            background: #d4a73f;
+            color: #1a1206;
+            border: 2px solid #f0d17a;
+            border-radius: 8px;
+
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .botao-aventura:hover {
+            background: #f0c965;
+        }
+
+        .voltar {
+            display: block;
+            width: fit-content;
+            margin: 20px auto 0;
+
+            color: #f0cc70;
+            text-decoration: none;
+        }
+
+        .voltar:hover {
+            color: #ffffff;
+        }
+
+        @media (max-width: 450px) {
+            .painel-heroi {
+                padding: 20px 15px;
+            }
+
+            .atributos {
+                grid-template-columns: 1fr;
+            }
+
+            .imagem-heroi {
+                width: 180px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="painel-heroi">
+
+        <h1>⚔️ Seu Herói ⚔️</h1>
+
+        <h2>{{ jogador.nome }}</h2>
+
+        <img
+            class="imagem-heroi"
+            src="{{ url_for('static', filename='imagens/personagens/' ~ classe ~ '.png') }}"
+            alt="{{ jogador.nome }}">
+
+        <p>
+            Seu herói está preparado para enfrentar
+            os perigos do Reino das Sombras.
+        </p>
+
+        <div class="atributos">
+
+            <div class="atributo">
+                <span>❤️ Vida Máxima</span>
+                <strong>{{ jogador.vida_maxima }}</strong>
+            </div>
+
+            <div class="atributo">
+                <span>⚔️ Dano</span>
+                <strong>{{ jogador.dano }}</strong>
+            </div>
+
+            <div class="atributo">
+                <span>⭐ Nível</span>
+                <strong>{{ jogador.nivel }}</strong>
+            </div>
+
+        </div>
+
+        <a
+            href="{{ url_for('iniciar_fase1', classe=classe) }}"
+            class="botao-aventura">
+            INICIAR AVENTURA
+        </a>
+
+        <a href="{{ url_for('selecionar') }}" class="voltar">
+            ← ESCOLHER OUTRO PERSONAGEM
+        </a>
+
+    </main>
+
+</body>
+</html>

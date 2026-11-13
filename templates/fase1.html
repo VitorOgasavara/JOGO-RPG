@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reino das Sombras | Fase 1</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            box-sizing: border-box;
+            padding: 25px 15px;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.35),
+                    rgba(0, 0, 0, 0.65)
+                ),
+                url("{{ url_for('static', filename='imagens/cenarios/fase_1.jpeg') }}")
+                center / cover no-repeat fixed;
+
+            color: #f5f0e8;
+            font-family: Arial, sans-serif;
+        }
+
+        .jogo {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .titulo-fase {
+            text-align: center;
+            color: #f0cc70;
+            text-shadow: 2px 3px 6px #000;
+            margin-bottom: 10px;
+        }
+
+        .progresso-fase {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #e5dfd1;
+        }
+
+        .arena {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        .lutador {
+            padding: 20px;
+            background: rgba(12, 12, 18, 0.86);
+            border: 2px solid #b89442;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .lutador h2 {
+            color: #f0cc70;
+            margin-bottom: 15px;
+        }
+
+        .imagem-lutador {
+            display: block;
+            width: 100%;
+            max-width: 230px;
+            height: 230px;
+            margin: 0 auto 20px;
+            object-fit: contain;
+            image-rendering: pixelated;
+        }
+
+        .informacao {
+            margin: 10px 0;
+            color: #e5dfd1;
+        }
+
+        .barra {
+            width: 100%;
+            height: 20px;
+            margin: 8px 0 15px;
+            background: #3b3030;
+            border: 1px solid #b89442;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .vida-preenchimento {
+            height: 100%;
+            background: linear-gradient(90deg, #a61d24, #e24d4d);
+        }
+
+        .xp-preenchimento {
+            height: 100%;
+            background: linear-gradient(90deg, #2865b5, #56a9ed);
+        }
+
+        .painel-acoes {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(12, 12, 18, 0.9);
+            border: 2px solid #b89442;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .painel-acoes h2 {
+            color: #f0cc70;
+            margin-bottom: 15px;
+        }
+
+        .botoes {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .botoes form {
+            margin: 0;
+        }
+
+        .botao-acao {
+            padding: 14px 30px;
+            background: #d4a73f;
+            color: #1a1206;
+            border: 2px solid #f0d17a;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .botao-acao:hover:not(:disabled) {
+            background: #f0c965;
+        }
+
+        .botao-acao:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .mensagem-batalha {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #6e5830;
+            border-radius: 8px;
+            color: #f5e3af;
+            text-align: center;
+        }
+
+        @media (max-width: 650px) {
+            .arena {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .imagem-lutador {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="jogo">
+
+        <h1 class="titulo-fase">⚔️ Fase 1 — Floresta Sombria ⚔️</h1>
+
+        <p class="progresso-fase">
+            Inimigo {{ jogo.inimigo_numero }} de 6
+        </p>
+
+        <section class="arena">
+
+            <!-- PERSONAGEM -->
+            <div class="lutador">
+
+                <h2>{{ jogo.nome }}</h2>
+
+                <img
+                    class="imagem-lutador"
+                    src="{{ url_for('static', filename='imagens/personagens/' ~ jogo.classe ~ '.png') }}"
+                    alt="{{ jogo.nome }}">
+
+                <p class="informacao">
+                    ❤️ Vida: {{ jogo.vida }} / {{ jogo.vida_maxima }}
+                </p>
+
+                <div class="barra">
+                    <div
+                        class="vida-preenchimento"
+                        style="width: {{ (100 * jogo.vida / jogo.vida_maxima)|round(0) }}%;">
+                    </div>
+                </div>
+
+                <p class="informacao">
+                    ⭐ Nível: {{ jogo.nivel }}
+                    | ⚔️ Dano: {{ jogo.dano }}
+                </p>
+
+                <p class="informacao">
+                    ✨ XP: {{ jogo.xp }}
+                </p>
+
+                <div class="barra">
+                    <div
+                        class="xp-preenchimento"
+                        style="width: {{ (100 * jogo.xp / xp_meta)|round(0) if xp_meta else 100 }}%;">
+                    </div>
+                </div>
+
+                <p class="informacao">
+                    🧪 Poções: {{ jogo.pocoes }}
+                </p>
+
+            </div>
+
+            <!-- INIMIGO -->
+            <div class="lutador">
+
+                <h2>{{ jogo.inimigo.nome }}</h2>
+
+                <img
+                    class="imagem-lutador"
+                    src="{{ url_for('static', filename=jogo.inimigo.imagem) }}"
+                    alt="{{ jogo.inimigo.nome }}">
+
+                <p class="informacao">
+                    ❤️ Vida: {{ jogo.inimigo.vida }} /
+                    {{ jogo.inimigo.vida_maxima }}
+                </p>
+
+                <div class="barra">
+                    <div
+                        class="vida-preenchimento"
+                        style="width: {{ (100 * jogo.inimigo.vida / jogo.inimigo.vida_maxima)|round(0) }}%;">
+                    </div>
+                </div>
+
+                <p class="informacao">
+                    ⚔️ Dano: {{ jogo.inimigo.dano }}
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- AÇÕES -->
+        <section class="painel-acoes">
+
+            <h2>Escolha sua ação</h2>
+
+            <div class="botoes">
+
+                <form action="{{ url_for('atacar') }}" method="POST">
+                    <button type="submit" class="botao-acao">
+                        ⚔️ ATACAR
+                    </button>
+                </form>
+
+                <form action="{{ url_for('usar_pocao') }}" method="POST">
+                    <button
+                        type="submit"
+                        class="botao-acao"
+                        {% if jogo.pocoes <= 0 or jogo.vida >= jogo.vida_maxima %}
+                            disabled
+                        {% endif %}>
+                        🧪 USAR POÇÃO
+                    </button>
+                </form>
+
+            </div>
+
+            {% if jogo.mensagem %}
+                <div class="mensagem-batalha">
+                    {{ jogo.mensagem }}
+                </div>
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</body>
+</html>

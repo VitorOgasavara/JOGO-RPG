@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reino das Sombras | Game Over</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+
+            background-image: url("{{ url_for('static', filename='imagens/cenarios/gamerover.jpeg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+
+            padding: 0 20px 55px;
+        }
+
+        .botao-reiniciar {
+            padding: 17px 45px;
+
+            background: #d4a73f;
+            color: #1a1206;
+
+            border: 2px solid #f0d17a;
+            border-radius: 10px;
+
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        .botao-reiniciar:hover {
+            background: #f0c965;
+        }
+
+        @media (max-width: 500px) {
+            .botao-reiniciar {
+                padding: 15px 25px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <form action="{{ url_for('tentar_novamente') }}" method="POST">
+        <button type="submit" class="botao-reiniciar">
+            ⚔️ ESCOLHER NOVO PERSONAGEM
+        </button>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reino das Sombras | Início</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background-image: url("{{ url_for('static', filename='imagens/cenarios/tela_inicial.jpeg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .botao-iniciar {
+            display: inline-block;
+            margin-bottom: 8vh;
+            padding: 16px 45px;
+
+            background: #d4a73f;
+            color: #1a1206;
+
+            border: 2px solid #f0d17a;
+            border-radius: 8px;
+
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+
+            transition: background 0.2s ease;
+        }
+
+        .botao-iniciar:hover {
+            background: #f0c965;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="{{ url_for('selecionar') }}"
+       class="botao-iniciar">
+        INICIAR JOGO
+    </a>
+
+</body>
+</html>

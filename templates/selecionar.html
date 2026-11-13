@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reino das Sombras | Selecionar Herói</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background-image: url("{{ url_for('static', filename='imagens/cenarios/selecionar.jpeg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 15px;
+            box-sizing: border-box;
+        }
+
+        .selecao {
+            width: 100%;
+            max-width: 1100px;
+            text-align: center;
+        }
+
+        .selecao h1 {
+            color: #f0cc70;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            text-shadow: 2px 3px 6px #000;
+            margin-bottom: 30px;
+        }
+
+        .personagens {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        .card-personagem {
+            width: 260px;
+            padding: 22px;
+            box-sizing: border-box;
+
+            background: rgba(10, 10, 15, 0.85);
+            border: 2px solid #b89442;
+            border-radius: 12px;
+
+            text-align: center;
+        }
+
+        .card-personagem h2 {
+            color: #f0cc70;
+            margin: 10px 0 15px;
+        }
+
+        .card-personagem img {
+            width: 170px;
+            height: 190px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 18px;
+            image-rendering: pixelated;
+        }
+
+        .botao-escolher {
+            display: inline-block;
+            padding: 12px 25px;
+
+            background: #d4a73f;
+            color: #1a1206;
+            border: 2px solid #f0d17a;
+            border-radius: 8px;
+
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .botao-escolher:hover {
+            background: #f0c965;
+        }
+
+        .voltar {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 22px;
+
+            background: rgba(0, 0, 0, 0.75);
+            color: #f0cc70;
+            border: 1px solid #b89442;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .voltar:hover {
+            background: #292017;
+        }
+
+        @media (max-width: 600px) {
+            .card-personagem {
+                width: min(100%, 320px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="selecao">
+
+        <h1>⚔️ Escolha Seu Herói ⚔️</h1>
+
+        <div class="personagens">
+
+            <!-- GUERREIRO -->
+            <section class="card-personagem">
+
+                <h2>Guerreiro</h2>
+
+                <img
+                    src="{{ url_for('static', filename='imagens/personagens/guerreiro.png') }}"
+                    alt="Guerreiro">
+
+                <a
+                    href="{{ url_for('personagem', classe='guerreiro') }}"
+                    class="botao-escolher">
+                    ESCOLHER
+                </a>
+
+            </section>
+
+            <!-- MAGO -->
+            <section class="card-personagem">
+
+                <h2>Mago</h2>
+
+                <img
+                    src="{{ url_for('static', filename='imagens/personagens/mago.png') }}"
+                    alt="Mago">
+
+                <a
+                    href="{{ url_for('personagem', classe='mago') }}"
+                    class="botao-escolher">
+                    ESCOLHER
+                </a>
+
+            </section>
+
+            <!-- ARQUEIRO -->
+            <section class="card-personagem">
+
+                <h2>Arqueiro</h2>
+
+                <img
+                    src="{{ url_for('static', filename='imagens/personagens/arqueiro.png') }}"
+                    alt="Arqueiro">
+
+                <a
+                    href="{{ url_for('personagem', classe='arqueiro') }}"
+                    class="botao-escolher">
+                    ESCOLHER
+                </a>
+
+            </section>
+
+        </div>
+
+        <a href="{{ url_for('inicio') }}" class="voltar">
+            ← VOLTAR
+        </a>
+
+    </main>
+
+</body>
+</html>
